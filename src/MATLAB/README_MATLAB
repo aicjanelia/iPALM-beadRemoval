@@ -1,4 +1,4 @@
-# iPALM Bead Removal
+# iPALM Bead Removal - MATLAB
 Beads are automatically removed from iPALM data by first finding the beads in a rendered image and then filtering the localization list to remove localizations near a bead location.
 
 **Acknowledgments:** The subfunctions `bpass`, `cntrd`, and `pkfnd` were adapted for MATLAB by [Daniel Blair and Eric Dufresne](https://site.physics.georgetown.edu/matlab/code.html) from the IDL Particle Tracking software developed by David Grier, John Crocker, and Eric Weeks.
