@@ -22,8 +22,8 @@ t.start = datetime('now'); % Measure how long pieces of this script take
 
 %% USER PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Add full paths to relevant files
-totalRawFile = 'D:\rLee_localProjects\2022-03-15_Pekka_FilterFocalAdhesions\22.03.08-1\Run1-561\Run1-561_c123_sum_X14_processed_purged_IDL_totalRawData.tiff';
-asciiFile = 'D:\rLee_localProjects\2022-03-15_Pekka_FilterFocalAdhesions\22.03.08-1\Run1-561\Run1-561_c123_sum_X14_processed_purged_IDL_ASCII.txt';
+totalRawFile = 'C:\fill\in\full\path\totalrawfilename.tiff';
+asciiFile = 'C:\fill\in\full\path\ASCII_filename.txt';
 
 %%% Bead Finding
 % These parameters are likely stable as long as the total raw tif stays
@@ -73,6 +73,8 @@ t.beadsFound = datetime('now');
 
 %% Remove Bead Localizations
 
+toRemove = zeros(length(ascii),1);
+
 for kk = 1:length(cnt)
 
     x1 = cnt(kk,1);
@@ -84,12 +86,13 @@ for kk = 1:length(cnt)
     dx = x-x1;
     dy = y-y1;
 
-    toRemove = ((dx.^2/rRemoveX.^2)+(dy.^2/rRemoveY.^2) < 1); % equation for an ellipse with width 2a & height 2b: x^2/a^2 + y^2/b^2 = 1
-
-    ascii(toRemove,:) = [];
+    beadsNow = ((dx.^2/rRemoveX.^2)+(dy.^2/rRemoveY.^2) < 1); % equation for an ellipse with width 2a & height 2b: x^2/a^2 + y^2/b^2 = 1
+    toRemove = toRemove | beadsNow;
+    
 
 end
 
+ascii(toRemove,:) = [];
 t.beadsRemoved = datetime('now');
 
 %%%% Check Bead Removal
