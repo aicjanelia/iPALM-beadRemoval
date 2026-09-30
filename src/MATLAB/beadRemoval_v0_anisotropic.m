@@ -38,6 +38,13 @@ rRemoveY = 7;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Data Loading
 
+if ~exist(totalRawFile,'file')
+    error('totalRawFile does not exist as a file. Check your parameters and run again.')
+end
+if ~exist(asciiFile,'file')
+    error('asciiFile does not exist as a file. Check your parameters and run again.')
+end
+
 im = imread(totalRawFile,'tif');
 im = max(im,[],3); % condense color image to grayscale
 t.imageLoaded = datetime('now');
