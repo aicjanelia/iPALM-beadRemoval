@@ -38,6 +38,8 @@ rRemoveY = 7;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Data Loading
 
+disp('Loading data...')
+
 if ~exist(totalRawFile,'file')
     error('totalRawFile does not exist as a file. Check your parameters and run again.')
 end
@@ -55,6 +57,9 @@ headers = headers.VariableNames;
 t.asciiLoaded = datetime('now');
 
 %% Bead Finding
+
+disp('Finding beads...')
+
 % bpass
 im2 = padarray(double(im),10*rParticle*[1 1],0); % Padding allows finding beads at the edge
 b = bpass(im2,0,rParticle); % input of 0 means no imaging smoothing
@@ -79,6 +84,8 @@ hold off
 t.beadsFound = datetime('now');
 
 %% Remove Bead Localizations
+
+disp('Removing localizations...')
 
 toRemove = zeros(length(ascii),1);
 
@@ -111,6 +118,9 @@ hold off
 % title('Sanity Check: Were the beads removed?')
 
 %% Save Work
+
+disp('Saving txt file...')
+
 T = array2table(ascii,'VariableNames',headers);
 writetable(T,[asciiFile(1:end-4) '_beadsRemoved_rRemoveX' num2str(rRemoveX) '_rRemoveY' num2str(rRemoveY)  '.txt'],'delimiter','\t')
 
